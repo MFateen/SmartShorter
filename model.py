@@ -21,3 +21,7 @@ class DeviceLink(SubFrame):
 def add_short_link(short_link):
     short_link.insert()
 
+
+def get_link_by_slug(slug):
+    return ShortLink.one(Q.slug == slug)
+
