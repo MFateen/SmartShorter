@@ -7,11 +7,14 @@ from model import *
 
 
 def get_single_short_link(slug):
-    return "Get " + slug
+    response = get_link_by_slug(slug)
+    if response is None:
+        abort(404)
+    return jsonify(response.to_json_type())
 
 
 def get_all_short_links():
-    return "Get shortlinks"
+    return jsonify(get_all_links())
 
 
 def generate_new_slug():
