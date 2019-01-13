@@ -18,7 +18,7 @@ def short_links():
 
 @app.route('/shortlinks/<slug>', methods=['PUT'])
 def update_slug(slug):
-    return "update " + slug
+    return update_short_link_by_slug(slug, request.json)
 
 
 @app.errorhandler(500)

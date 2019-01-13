@@ -56,3 +56,30 @@ def add_new_short_link(request):
         "message": "created successfully"
     }
     return jsonify(response), 201
+
+
+def update_short_link_by_slug(slug, request):
+    link = get_link_by_slug(slug, show_id=True)
+    if link is None:
+        abort(404)
+
+    if 'web' in request:
+        link.web = request['web']
+    if 'android' in request:
+        if 'primary' in request['android']:
+            link.android['primary'] = request['android']['primary']
+        if 'fallback' in request['android']:
+            link.android['fallback'] = request['android']['fallback']
+    if 'ios' in request:
+        if 'primary' in request['ios']:
+            link.ios['primary'] = request['ios']['primary']
+        if 'fallback' in request['ios']:
+            link.ios['fallback'] = request['ios']['fallback']
+
+    update_link(link)
+
+    response = {
+        "status": "successful",
+        "message": "updated successfully"
+    }
+    return jsonify(response), 201

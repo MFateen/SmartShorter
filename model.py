@@ -22,9 +22,15 @@ def add_short_link(short_link):
     short_link.insert()
 
 
-def get_link_by_slug(slug):
+def get_link_by_slug(slug, show_id=False):
+    if show_id:
+        return ShortLink.one(Q.slug == slug)
     return ShortLink.one(Q.slug == slug, projection={'_id': False})
 
 
 def get_all_links():
     return [sl.to_json_type() for sl in ShortLink.many(projection={'_id': False})]
+
+
+def update_link(link):
+    link.update()
